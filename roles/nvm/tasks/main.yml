@@ -1,0 +1,24 @@
+---
+
+- name: Install dependencies
+  apt: pkg={{ package }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - acl
+    - git
+    - curl
+    - build-essential
+    - libssl-dev
+  become: yes
+  loop_control:
+    loop_var: package
+  tags: nvm
+
+- include_vars: "user.yml"
+
+- include: "user/install.yml"
+
+- include: "user/install_versions.yml"
+  when:  "nvm_node_versions is defined"
+
+- include: "user/install_packages.yml"
+  when:  "nvm_global_packages is defined"

@@ -1,0 +1,17 @@
+---
+
+- name: Install nvm
+  git: repo={{ nvm_repo }} force=yes dest="~/.nvm" version={{ nvm_version }} accept_hostkey=true
+  tags: nvm
+
+- name: Make nvm.sh executable
+  file:
+    path: ~/.nvm/nvm.sh
+    mode: a+x
+
+- name: Source nvm in ~/.profile
+  lineinfile: >
+    dest=~/.profile
+    line="source {{ nvm_root }}/nvm.sh"
+    create=yes
+  tags: nvm

@@ -1,0 +1,21 @@
+---
+
+- name: install NodeJS versions with nvm
+  shell: "source ~/.nvm/nvm.sh && nvm install {{ nvm_node_version }}"
+  register: output
+  changed_when: "'already installed.' not in output.stderr"
+  args:
+    executable: /bin/bash
+  with_items: "{{ nvm_node_versions }}"
+  loop_control:
+    loop_var: nvm_node_version
+
+- name: create alias directory
+  file: path="~/alias" state=directory
+  become: false
+
+- name: Set default node version to {{ nvm_node_versions[0] }}
+  shell: "source ~/.nvm/nvm.sh && nvm alias default {{ nvm_node_versions[0] }}"
+  tags: nvm
+  args:
+    executable: /bin/bash

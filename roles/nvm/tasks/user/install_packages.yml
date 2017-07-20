@@ -1,0 +1,6 @@
+---
+- name: Install Global NPM Packages
+  shell: "source ~/.profile && npm install -g {{ item }}"
+  args:
+    executable: /bin/bash
+  with_items: "{{ nvm_global_packages }}"

@@ -1,0 +1,51 @@
+---
+- name: Add apt repos for android studio and java
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: yes
+  with_items: "{{ android_studio_repositories }}"
+
+- name: Set auto-accept Java license
+  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: Install Java
+  shell: DEBIAN_FRONTEND=noninteractive apt -y install oracle-java8-installer
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: Install Java packages with apt
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: yes
+  with_items: "{{ android_studio_java_packages }}"
+
+- name: Set JAVA_HOME
+  shell: source /etc/profile
+  args:
+    executable: /bin/bash
+
+- name: Install ubuntu-make
+  apt:
+    name: ubuntu-make
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: Set android-studio folder permissions
+  file:
+    path: "{{ android_studio_install_path }}"
+    mode: 0777
+    recurse: yes
+    state: directory
+  become: yes
+
+- name: Install Android Studio with ubuntu-make
+  shell: umake android --accept-license {{ android_studio_install_path }}

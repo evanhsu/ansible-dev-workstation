@@ -1,0 +1,12 @@
+---
+apt_packages:
+  # - ansible # Installed with Pip
+  - chromium-browser
+  - tmux
+  - virtualbox
+
+  # - yarn # Installed with its own role
+  # - vim # Installed with its own role
+  # - vagrant # Installed with its own role
+
+apt_repositories: []

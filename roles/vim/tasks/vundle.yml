@@ -1,0 +1,10 @@
+---
+
+- name: Install Vundle via git
+  git:
+    repo: "https://github.com/VundleVim/Vundle.vim.git"
+    dest: "~/.vim/bundle/Vundle.vim"
+  become: no
+
+- name: Install Vundle plugins for vim
+  command: vim -c ':PluginInstall' -c ':q' -c ':q'

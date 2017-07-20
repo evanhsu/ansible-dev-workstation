@@ -1,0 +1,43 @@
+---
+- hosts: all
+  #connection: local
+
+  roles:
+    - role: geerlingguy.dotfiles
+      tags: ['dotfiles']
+
+    - role: vim
+
+    - role: nvm
+      nvm_node_versions: 
+        - 8.2.0
+        - 6.11.1
+      nvm_global_packages:
+        - react-native-cli
+      tags: ['nvm']
+
+    - role: vagrant
+      vagrant_force_install: yes
+
+    - role: androidstudio
+
+    
+  tasks:
+    - include_vars: "main.yml"
+
+    - name: Add apt repos
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+        update_cache: yes
+      become: yes
+      with_items: "{{ apt_repositories }}"
+
+    - name: Install packages with apt
+      apt:
+        name: "{{ item }}"
+        state: present
+        allow_unauthenticated: yes
+        update_cache: yes
+      become: yes
+      with_items: "{{ apt_packages }}"

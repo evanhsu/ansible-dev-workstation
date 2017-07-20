@@ -1,0 +1,10 @@
+---
+android_studio_repositories:
+  - ppa:webupd8team/java
+  - ppa:ubuntu-desktop/ubuntu-make
+
+android_studio_java_packages:
+  - java-common
+  - oracle-java8-set-default
+
+android_studio_install_path: /opt/android-studio

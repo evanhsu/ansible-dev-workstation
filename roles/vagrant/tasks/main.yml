@@ -1,0 +1,31 @@
+---
+
+- name: Check whether Vagrant is installed.
+  command: "dpkg-query -f '${Status}' -W vagrant"
+  register: check_vagrant
+  ignore_errors: yes
+  changed_when: no
+
+- debug:
+    msg: "vagrant_force_install = {{ vagrant_force_install }}"
+
+- name: Download Vagrant package
+  get_url: url="{{ vagrant_download_url }}" checksum="sha256:{{ vagrant_sha256 }}" dest="{{ vagrant_download_tmppath }}"
+  when: ('ok installed' not in check_vagrant.stdout) or (vagrant_force_install == True)
+
+- name: Install Vagrant with dpkg
+  apt: deb="{{ vagrant_download_tmppath }}"
+  become: yes
+  when: ('ok installed' not in check_vagrant.stdout) or (vagrant_force_install == True)
+
+- name: Remove Vagrant installer
+  file:
+    name: "{{ vagrant_download_tmppath }}"
+    state: absent
+  become: yes
+
+- name: Install vagrant plugins
+  shell: vagrant plugin install {{ vagrant_plugin }}
+  with_items: "{{ vagrant_plugins }}"
+  loop_control:
+    loop_var: vagrant_plugin

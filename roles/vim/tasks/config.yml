@@ -1,0 +1,20 @@
+---
+
+- name: Creating configuration directory for Vim
+  file:
+    state: directory
+    dest: "{{ item }}"
+    mode: "0755"
+  with_items:
+    - ~/.vim
+  become: no
+
+- name: Writing config files for Vim
+  copy:
+    src: "{{ item.from }}"
+    dest: "{{ item.to }}"
+    mode: "0644"
+  with_items:
+    - from: "files/"
+      to: "~/.vim/"
+  become: no
