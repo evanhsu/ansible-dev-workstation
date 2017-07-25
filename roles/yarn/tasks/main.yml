@@ -1,6 +1,7 @@
 ---
+
 - name: Add Yarn repository key
-  apt-key: 
+  apt_key: 
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
     state: present
   become: yes

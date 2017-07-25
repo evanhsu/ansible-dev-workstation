@@ -49,3 +49,11 @@
 
 - name: Install Android Studio with ubuntu-make
   shell: umake android --accept-license {{ android_studio_install_path }}
+  register: command_result
+  ignore_errors: true
+
+- name: Abort if Android Studio installation failed
+  fail: msg="Android Studio installation failed"
+  when: 
+    - "'ERROR' in command_result.stderr"
+    - "'Android Studio is already installed' not in command_result.stdout"

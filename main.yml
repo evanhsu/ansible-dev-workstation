@@ -8,6 +8,8 @@
 
     - role: vim
 
+    - role: yarn
+
     - role: nvm
       nvm_node_versions: 
         - 8.2.0
@@ -37,6 +39,7 @@
       apt:
         name: "{{ item }}"
         state: present
+        force: yes
         allow_unauthenticated: yes
         update_cache: yes
       become: yes

@@ -10,12 +10,20 @@
   loop_control:
     loop_var: nvm_node_version
 
+- name: Set default node version in .profile
+  lineinfile:
+    path: ~/.profile
+    line: "nvm alias default {{ nvm_node_versions[0] }}"
+    state: present
+
+- name: Specify nvm use default in .profile
+  lineinfile:
+    path: ~/.profile
+    line: 'nvm use default'
+    insertafter: 'nvm alias default .*'
+
 - name: create alias directory
   file: path="~/alias" state=directory
   become: false
 
-- name: Set default node version to {{ nvm_node_versions[0] }}
-  shell: "source ~/.nvm/nvm.sh && nvm alias default {{ nvm_node_versions[0] }}"
-  tags: nvm
-  args:
-    executable: /bin/bash
+
