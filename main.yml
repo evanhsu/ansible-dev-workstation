@@ -18,6 +18,9 @@
         - react-native-cli
       tags: ['nvm']
 
+    - role: chrome
+      become: yes
+
     - role: vagrant
       vagrant_force_install: yes
 
