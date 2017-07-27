@@ -7,6 +7,7 @@ dotfiles_home: "~"
 dotfiles_files:
   - .bash_aliases
   - .bashrc
+  - .gitconfig
   - .profile
   - .tmux.conf
   - .vimrc
