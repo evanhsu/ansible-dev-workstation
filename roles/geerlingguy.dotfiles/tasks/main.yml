@@ -12,6 +12,15 @@
   become: no
   when: dotfiles_path.stat.exists is defined and dotfiles_path.stat.exists == False
 
+- name: Set file mode for all dotfiles
+  file:
+    path: "{{ dotfiles_repo_local_destination }}/{{ item }}"
+    mode: 0755
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  with_items: "{{ dotfiles_files }}"
+  become: yes
+
 - name: Ensure all configured dotfiles are links.
   shell: "ls -F {{ dotfiles_home }}/{{ item }}"
   register: existing_dotfile_info
