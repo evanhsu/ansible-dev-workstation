@@ -8,3 +8,5 @@ android_studio_java_packages:
   - oracle-java8-set-default
 
 android_studio_install_path: /opt/android-studio
+
+php_storm_install_path: ~/PHPStorm

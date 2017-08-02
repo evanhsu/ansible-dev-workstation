@@ -57,3 +57,23 @@
   when: 
     - "'ERROR' in command_result.stderr"
     - "'Android Studio is already installed' not in command_result.stdout"
+
+- name: Set PHPStorm folder permissions
+  file:
+    path: "{{ php_storm_install_path }}"
+    mode: 0777
+    recurse: yes
+    state: directory
+  become: yes
+
+- name: Install PHPStorm with ubuntu-make
+  shell: umake ide phpstorm {{ php_storm_install_path }}
+  register: command_result
+  ignore_errors: true
+
+- name: Abort if PHPStorm installation failed
+  fail: msg="PHPStorm installation failed"
+  when: 
+    - "'ERROR' in command_result.stderr"
+    - "'is already installed' not in command_result.stdout"
+

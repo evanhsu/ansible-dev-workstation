@@ -25,6 +25,10 @@
       vagrant_force_install: yes
 
     - role: androidstudio
+      tags: ['umake']
+
+    - role: dropbox
+      tags: ['dropbox']
 
     
   tasks:
