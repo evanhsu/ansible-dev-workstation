@@ -16,7 +16,7 @@
 - name: Install Vagrant with dpkg
   apt: deb="{{ vagrant_download_tmppath }}"
   become: yes
-  when: ('ok installed' not in check_vagrant.stdout) or (vagrant_force_install == True)
+  when: ('ok installed' not in check_vagrant.stdout) or (vagrant_force_install)
 
 - name: Remove Vagrant installer
   file:

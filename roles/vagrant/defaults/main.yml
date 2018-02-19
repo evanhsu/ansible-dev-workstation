@@ -1,7 +1,7 @@
 ---
 # These values only affect tasks on Debian
-vagrant_download_url: "https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb"
-vagrant_sha256: "d006d6227e049725b64d8ba3967f0c82460a403ff40230515c93134d58723150"
+vagrant_download_url: "https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb"
+vagrant_sha256: "df8dfb0176d62f0d20d11caec51e53bad57ea2bcc3877427841658702906754f"
 vagrant_download_tmppath: "/tmp/vagrant.deb"
 
 vagrant_force_install: yes

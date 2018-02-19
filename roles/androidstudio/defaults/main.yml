@@ -1,7 +1,7 @@
 ---
 android_studio_repositories:
   - ppa:webupd8team/java
-  - ppa:ubuntu-desktop/ubuntu-make
+  - ppa:lyzardking/ubuntu-make
 
 android_studio_java_packages:
   - java-common

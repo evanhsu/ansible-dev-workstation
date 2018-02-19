@@ -7,8 +7,10 @@
       tags: ['dotfiles']
 
     - role: vim
+      tags: ['vim']
 
-    - role: yarn
+    - role: snap
+      tags: ['snap']
 
     - role: nvm
       nvm_node_versions: 
@@ -18,11 +20,9 @@
         - react-native-cli
       tags: ['nvm']
 
-    - role: chrome
-      become: yes
-
     - role: vagrant
-      vagrant_force_install: yes
+      vagrant_force_install: no
+      tags: ['vagrant']
 
     - role: androidstudio
       tags: ['umake']
@@ -33,6 +33,15 @@
     
   tasks:
     - include_vars: "main.yml"
+      tags: ['apt']
+
+    - name: Add apt repo keys
+      apt_key: 
+        url: "{{ item }}"
+        state: present
+      become: yes
+      with_items: "{{ apt_keys }}"
+      tags: ['apt']
 
     - name: Add apt repos
       apt_repository:
@@ -41,6 +50,7 @@
         update_cache: yes
       become: yes
       with_items: "{{ apt_repositories }}"
+      tags: ['apt']
 
     - name: Install packages with apt
       apt:
@@ -51,3 +61,5 @@
         update_cache: yes
       become: yes
       with_items: "{{ apt_packages }}"
+      tags: ['apt']
+

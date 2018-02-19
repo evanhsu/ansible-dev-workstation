@@ -32,12 +32,15 @@
   args:
     executable: /bin/bash
 
-- name: Install ubuntu-make
+    #- name: Install ubuntu-make
+    #    become: yes
+    #    command: snap install ubuntu-make --classic
+
+- name: Install ubuntu-make (with APT)
+  become: yes
   apt:
     name: ubuntu-make
     state: latest
-    update_cache: yes
-  become: yes
 
 - name: Set android-studio folder permissions
   file:
