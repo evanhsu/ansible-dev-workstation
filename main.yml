@@ -49,9 +49,13 @@
       apt_repository:
         repo: "{{ item }}"
         state: present
-        update_cache: yes
       become: yes
       with_items: "{{ apt_repositories }}"
+      tags: ['apt']
+
+    - name: Update apt cache
+      become: yes
+      command: apt update
       tags: ['apt']
 
     - name: Install packages with apt
@@ -60,7 +64,6 @@
         state: present
         force: yes
         allow_unauthenticated: yes
-        update_cache: yes
       become: yes
       with_items: "{{ apt_packages }}"
       tags: ['apt']

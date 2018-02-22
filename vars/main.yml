@@ -5,6 +5,7 @@ apt_packages:
   - google-chrome-stable
   - virtualbox
   - sublime-text
+  - handbrake
 
   # - ansible # Installed with Pip
   # - vim # Installed with its own role
@@ -14,6 +15,7 @@ apt_repositories:
     - deb http://dl.google.com/linux/chrome/deb/ stable main
     - deb https://dl.yarnpkg.com/debian/ stable main
     - deb https://download.sublimetext.com/ apt/stable/
+    - deb http://ppa.launchpad.net/stebbins/handbrake-releases/ubuntu zesty main # There's no Artful release available
 
 apt_keys:
     - https://dl-ssl.google.com/linux/linux_signing_key.pub  # Google Chrome
