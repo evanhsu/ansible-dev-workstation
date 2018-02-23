@@ -30,6 +30,8 @@
     - role: dropbox
       tags: ['dropbox']
 
+    - role: dockercompose
+      tags: ['dockercompose']
     
   tasks:
     - include_vars: "main.yml"

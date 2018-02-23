@@ -1,0 +1,21 @@
+---
+
+- name: Check if docker-compose is installed
+  stat:
+      path: "{{ docker_compose_install_path }}"
+  register: stat_docker_compose
+
+- name: Download docker-compose into {{ docker_compose_install_path }}
+  become: yes
+  get_url: url="{{ docker_compose_url }}" dest="{{ docker_compose_install_path }}"
+  when: stat_docker_compose.stat.exists == False
+
+- name: Make docker-compose binary executable
+  become: yes
+  file:
+      path: "{{ docker_compose_install_path }}"
+      state: file
+      mode: "o+x"
+  when: stat_docker_compose.stat.exists == False
+
+
