@@ -1,0 +1,49 @@
+---
+
+- name: Add apt repo for docker
+  apt_repository:
+    repo: "{{ docker_repo }}"
+    state: present
+  become: yes
+
+- name: Add apt repo key for docker
+  apt_key: 
+    url: "{{ docker_apt_key }}"
+    state: present
+  become: yes
+
+- name: Update apt cache
+  become: yes
+  command: apt update
+
+- name: Install packages with apt
+  apt:
+    name: "{{ docker_package_name }}"
+    state: present
+    force: yes
+    allow_unauthenticated: yes
+  become: yes
+
+- name: Ensure the docker group exists
+  become: yes
+  group:
+    name: docker
+    state: present
+  when: 
+    - enable_docker_without_sudo is defined
+    - enable_docker_without_sudo == True
+
+- name: Add local users to the docker group
+  become: yes
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items: "{{ users_to_add_to_docker_group }}"
+  when: 
+    - enable_docker_without_sudo is defined
+    - enable_docker_without_sudo == True
+    - users_to_add_to_docker_group is defined
+
+- debug:
+    msg: "You need to log out and back in if your user group membership has changed!"

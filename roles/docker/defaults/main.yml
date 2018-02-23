@@ -1,0 +1,10 @@
+---
+
+docker_repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+docker_package_name: docker-ce
+docker_apt_key: https://download.docker.com/linux/ubuntu/gpg
+
+enable_docker_without_sudo: True
+users_to_add_to_docker_group:
+  - evan
+  

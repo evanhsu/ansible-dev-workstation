@@ -30,6 +30,9 @@
     - role: dropbox
       tags: ['dropbox']
 
+    - role: docker
+      tags: ['docker']
+
     - role: dockercompose
       tags: ['dockercompose']
     
